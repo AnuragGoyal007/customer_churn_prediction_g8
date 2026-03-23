@@ -394,9 +394,12 @@ tenure = st.slider("Tenure (months)", 0, 72, 12)
 
 col3, col4 = st.columns(2)
 with col3:
-    monthly = st.number_input("Monthly Charges ($)", 0.0, 200.0, 50.0, step=0.5)
+    monthly = st.number_input("Monthly Charges ($)", 0.0, 10000.0, 50.0, step=0.5)
+
+# TotalCharges auto-calculated by monthly * tenure; no artificial cap
 with col4:
-    total   = st.number_input("Total Charges ($)", 0.0, 10000.0, 500.0, step=10.0)
+    total = float(monthly) * float(tenure)
+    st.number_input("Total Charges ($)", value=total, min_value=0.0, step=0.1, format="%.2f", disabled=True)
 
 col5, col6 = st.columns(2)
 with col5:
